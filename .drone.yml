@@ -17,9 +17,9 @@ steps:
     image: plugins/docker
     settings:
       username:
-        from_secret: dockerhub.user
+        from_secret: DOCKERHUB.USER
       password:
-        from_secret: dockerhub.password
+        from_secret: DOCKERHUB.PASSWORD
       repo: faproject/data-service
       tags:
         - latest
