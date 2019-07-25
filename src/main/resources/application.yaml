@@ -1,0 +1,30 @@
+spring:
+  jpa:
+    show-sql: true
+  datasource:
+    paltform: postgres
+    hikari:
+      connectionTimeout: 20000
+      maximumPoolSize: 5
+
+---
+
+spring:
+  profiles: development
+
+  datasource:
+    paltform: postgres
+    url: jdbc:postgresql://localhost:5432/fa
+    username: root
+    password: root
+
+---
+
+spring:
+  profiles: staging
+
+  datasource:
+    paltform: postgres
+    url: jdbc:postgresql://manny.db.elephantsql.com:5432/azxnvpuc
+    username: azxnvpuc
+    password: t-YI-8I6EMutc5VOp72bVMpjqvgFIm0l
