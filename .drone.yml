@@ -1,0 +1,26 @@
+kind: pipeline
+name: default
+
+steps:
+  - name: test
+    image: maven:3.6.1-jdk-11-slim
+    commands:
+      - mvn test
+
+  - name: build
+    image: maven:3.6.1-jdk-11-slim
+    commands:
+      - mvn clean package
+      - ls -R
+
+  - name: bake
+    image: plugins/docker
+    settings:
+      username:
+        from_secret: dockerhub.user
+      password:
+        from_secret: dockerhub.password
+      repo: faproject/data-service
+      tags:
+        - latest
+        - 0.0.1
