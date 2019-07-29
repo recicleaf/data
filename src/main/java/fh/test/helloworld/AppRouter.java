@@ -9,6 +9,9 @@ import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+
+import java.util.Optional;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.web.reactive.function.server.ServerResponse.ok;
@@ -24,7 +27,18 @@ public class AppRouter {
         return RouterFunctions.route()
                               .GET("/hello", request -> ok().syncBody("Hello World!"))
                               .GET("/hello2", request -> ok().syncBody("Hello World 2!"))
+
                               .GET("/materials", request -> ok().contentType(APPLICATION_JSON).body(Flux.fromIterable(materialRepository.findAll()), Material.class))
+                              .POST("/materials", request -> ok().contentType(APPLICATION_JSON)
+                                                                 .body(Mono.just(materialRepository.save(request.bodyToMono(Material.class).block())), Material.class))
+
+                              .DELETE("/materials/{id}", serverRequest -> ok().contentType(APPLICATION_JSON)
+                                                                              .body(Mono.just(materialRepository.findById(Long.valueOf(serverRequest.pathVariable("id"))))
+                                                                                        .switchIfEmpty(Mono.error(new IllegalArgumentException("Not found")))
+                                                                                        .map(Optional::get)
+                                                                                        .doOnNext(material -> materialRepository.deleteById(
+                                                                                                Long.valueOf(serverRequest.pathVariable("id"))))
+                                                                                      , Material.class))
                               .build();
     }
 }
