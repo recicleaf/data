@@ -23,4 +23,4 @@ steps:
       repo: faproject/data-service
       tags:
         - latest
-        - 0.0.$$BUILD_NUMBER
+        - 0.0.$$DRONE_BUILD_NUMBER
