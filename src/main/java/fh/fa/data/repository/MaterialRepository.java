@@ -1,6 +1,6 @@
-package fh.test.helloworld.repository;
+package fh.fa.data.repository;
 
-import fh.test.helloworld.model.Material;
+import fh.fa.data.model.Material;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,4 +1,4 @@
-package fh.test.helloworld.model;
+package fh.fa.data.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,7 +1,7 @@
-package fh.test.helloworld;
+package fh.fa.data;
 
-import fh.test.helloworld.model.Material;
-import fh.test.helloworld.repository.MaterialRepository;
+import fh.fa.data.model.Material;
+import fh.fa.data.repository.MaterialRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
