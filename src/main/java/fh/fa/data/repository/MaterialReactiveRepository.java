@@ -57,6 +57,13 @@ public class MaterialReactiveRepository {
                 });
     }
 
+    public Flux<Material> save(final Flux<Material> newMaterial) {
+        return newMaterial
+                .collectList()
+                .doOnNext(materialRepository::saveAll)
+                .flatMapMany(Flux::fromIterable);
+    }
+
     public Mono<Void> delete(final Mono<Long> id) {
         return id.doOnNext(materialRepository::deleteById)
                  .thenEmpty(Subscriber::onComplete);

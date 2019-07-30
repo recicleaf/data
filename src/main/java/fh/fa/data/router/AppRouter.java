@@ -26,20 +26,26 @@ public class AppRouter {
                               .GET("/materials", request -> ServerResponse.ok().contentType(APPLICATION_JSON).body(materialRepository.findAll(), Material.class))
                               .POST("/materials", request -> ServerResponse.status(HttpStatus.CREATED)
                                                                            .contentType(APPLICATION_JSON)
-                                                                           .body(materialRepository.save(request.bodyToMono(Material.class)), Material.class))
+                                                                           .body(materialRepository.save(request.bodyToMono(Material.class)),
+                                                                                 Material.class))
 
                               .GET("/materials/{id}", request -> ServerResponse.ok()
                                                                                .contentType(APPLICATION_JSON)
                                                                                .body(materialRepository.findById(Mono.just(Long.valueOf(request.pathVariable("id")))),
                                                                                      Material.class))
-                              .DELETE("/materials/{id}", request -> ServerResponse.ok()
-                                                                                  .body(materialRepository.delete(Mono.just(Long.valueOf(request.pathVariable("id")))),
-                                                                                        Void.class))
                               .PUT("/materials/{id}", request -> ServerResponse.ok()
                                                                                .contentType(APPLICATION_JSON)
                                                                                .body(materialRepository.update(Mono.just(Long.valueOf(request.pathVariable("id"))),
                                                                                                                request.bodyToMono(Material.class)),
                                                                                      Material.class))
+                              .DELETE("/materials/{id}", request -> ServerResponse.ok()
+                                                                                  .body(materialRepository.delete(Mono.just(Long.valueOf(request.pathVariable("id")))),
+                                                                                        Void.class))
+
+                              .POST("/materials/bulk", request -> ServerResponse.ok()
+                                                                                .contentType(APPLICATION_JSON)
+                                                                                .body(materialRepository.save(request.bodyToFlux(Material.class)),
+                                                                                      Material.class))
                               .build();
     }
 }
