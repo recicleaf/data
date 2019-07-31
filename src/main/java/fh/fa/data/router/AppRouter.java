@@ -42,7 +42,7 @@ public class AppRouter {
                                                                                   .body(materialRepository.delete(Mono.just(Long.valueOf(request.pathVariable("id")))),
                                                                                         Void.class))
 
-                              .POST("/materials/bulk", request -> ServerResponse.ok()
+                              .POST("/materials/bulk", request -> ServerResponse.status(HttpStatus.CREATED)
                                                                                 .contentType(APPLICATION_JSON)
                                                                                 .body(materialRepository.save(request.bodyToFlux(Material.class)),
                                                                                       Material.class))

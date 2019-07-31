@@ -34,7 +34,7 @@ public class Material implements Serializable {
 
     @Column(name = "images")
     @Convert(converter = ListToJsonConverter.class)
-    public String[] images;
+    public List<String> images;
 
     @Column(name = "type")
     public String type;
