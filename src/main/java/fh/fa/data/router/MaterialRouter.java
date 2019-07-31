@@ -2,7 +2,6 @@ package fh.fa.data.router;
 
 import fh.fa.data.model.Material;
 import fh.fa.data.repository.MaterialReactiveRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
@@ -14,15 +13,11 @@ import reactor.core.publisher.Mono;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 
 @Configuration
-public class AppRouter {
-
-    @Autowired
-    private MaterialReactiveRepository materialRepository;
+public class MaterialRouter {
 
     @Bean
-    RouterFunction<ServerResponse> updateEmployeeRoute() {
+    RouterFunction<ServerResponse> materialRoutes(final MaterialReactiveRepository materialRepository) {
         return RouterFunctions.route()
-
                               .GET("/materials", request -> ServerResponse.ok().contentType(APPLICATION_JSON).body(materialRepository.findAll(), Material.class))
                               .POST("/materials", request -> ServerResponse.status(HttpStatus.CREATED)
                                                                            .contentType(APPLICATION_JSON)

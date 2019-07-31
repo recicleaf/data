@@ -1,15 +1,15 @@
 package fh.fa.data.repository;
 
-import fh.fa.data.model.Material;
+import fh.fa.data.model.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MaterialReactiveRepository extends ReactiveRepository<Material> {
+public class ProductReactiveRepository extends ReactiveRepository<Product> {
 
-    private static final String ERROR_SOURCE = "Material Repository";
+    private static final String ERROR_SOURCE = "Product Repository";
 
-    public MaterialReactiveRepository(final JpaRepository<Material, Long> repository) {
+    public ProductReactiveRepository(final JpaRepository<Product, Long> repository) {
         super(repository);
     }
 

@@ -1,0 +1,358 @@
+openapi: 3.0.0
+info:
+  description: No description
+  version: 1.0.0
+  title: Fa
+  contact: {}
+paths:
+  '/materials/':
+    get:
+      tags:
+        - material
+      summary: list
+      description: List all Materials
+      responses:
+        '200':
+          description: Status 200
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Material'
+        '204':
+          description: No content
+      parameters: []
+    post:
+      tags:
+        - material
+      summary: create
+      description: Create new Material
+      requestBody:
+        $ref: '#/components/requestBodies/Material'
+      responses:
+        '201':
+          description: Status 201
+        '409':
+          description: Material already present
+      parameters: []
+  '/materials/{id}':
+    get:
+      tags:
+        - material
+      summary: select
+      description: Get Material by Id
+      responses:
+        '200':
+          description: Status 200
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Material'
+        '404':
+          description: Status 404
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Material Id
+          schema:
+            type: string
+    put:
+      tags:
+        - material
+      summary: update
+      description: Update Material
+      requestBody:
+        $ref: '#/components/requestBodies/Material'
+      responses:
+        '200':
+          description: Status 200
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Material'
+        '304':
+          description: Status 304
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Material'
+        '404':
+          description: Status 404
+        '409':
+          description: Status 409
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Material'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Material Id
+          schema:
+            type: string
+    delete:
+      tags:
+        - material
+      summary: delete
+      description: Delete Material by Id
+      responses:
+        '200':
+          description: Status 200
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Material'
+        '404':
+          description: Status 404
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Material Id
+          schema:
+            type: string
+  '/materials/bulk':
+    post:
+      tags:
+        - material
+      summary: bulk create
+      description: Create  or update multiple Materials
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Material'
+        required: true
+      responses:
+        '201':
+          description: Status 201
+      parameters: []
+  '/products/':
+    get:
+      tags:
+        - product
+      summary: list
+      description: List all Products
+      responses:
+        '200':
+          description: Status 200
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+        '204':
+          description: No content
+      parameters: []
+    post:
+      tags:
+        - product
+      summary: create
+      description: Create new Product
+      requestBody:
+        $ref: '#/components/requestBodies/Material'
+      responses:
+        '201':
+          description: Status 201
+        '409':
+          description: Material already present
+      parameters: []
+  '/products/{id}':
+    get:
+      tags:
+        - product
+      summary: select
+      description: Get Product by Id
+      responses:
+        '200':
+          description: Status 200
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '404':
+          description: Status 404
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Material Id
+          schema:
+            type: string
+    put:
+      tags:
+        - product
+      summary: update
+      description: Update Product
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+        required: true
+      responses:
+        '200':
+          description: Status 200
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '304':
+          description: Status 304
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '404':
+          description: Status 404
+        '409':
+          description: Status 409
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Material Id
+          schema:
+            type: string
+    delete:
+      tags:
+        - product
+      summary: delete
+      description: Delete Product by Id
+      responses:
+        '200':
+          description: Status 200
+        '404':
+          description: Status 404
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Material Id
+          schema:
+            type: string
+  '/products/bulk':
+    post:
+      tags:
+        - product
+      summary: bulk create
+      description: Create  or update multiple Products
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Product'
+        required: true
+      responses:
+        '201':
+          description: Status 201
+      parameters: []
+components:
+  requestBodies:
+    Material:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Material'
+      required: true
+  schemas:
+    Error:
+      type: object
+      required:
+        - cause
+        - code
+        - source
+      properties:
+        source:
+          type: string
+          description: origin of the error
+        cause:
+          type: string
+          description: description of the error
+        code:
+          type: integer
+          description: error code
+        trace:
+          type: string
+          description: specific error message
+        details:
+          type: array
+          description: useful details
+          items:
+            type: object
+            properties:
+              key:
+                type: string
+                description: identification
+              value:
+                type: string
+                description: value
+      description: Basic error structure
+    Material:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        abbreviations:
+          type: array
+          items:
+            type: string
+        imgs:
+          type: array
+          items:
+            type: string
+        type:
+          type: string
+          enum:
+            - PLASTIC
+            - BATERY
+            - PAPER
+            - METAL
+            - BIOMATER
+            - GLASS
+            - COMPOSITE
+    Product:
+      type: object
+      required:
+        - barcode
+        - id
+        - name
+      properties:
+        id:
+          type: string
+        barcode:
+          type: string
+        brand:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+        image:
+          type: string
+  links: {}
+  callbacks: {}
+security: []
+servers: []
+tags:
+  - name: material
+    description: Related to Material
+  - name: product
+    description: Related to Product
