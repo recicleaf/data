@@ -7,7 +7,7 @@ import javax.persistence.AttributeConverter;
 import java.io.IOException;
 import java.util.List;
 
-public class ListToJsonConverter implements AttributeConverter<List<String>, String> {
+public class StringListToJsonConverter implements AttributeConverter<List<String>, String> {
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
@@ -23,7 +23,11 @@ public class ListToJsonConverter implements AttributeConverter<List<String>, Str
     @Override
     public List<String> convertToEntityAttribute(final String s) {
         try {
-            return objectMapper.readValue(s, List.class);
+            if (s == null || s.equals("null")) {
+                return List.of();
+            } else {
+                return objectMapper.readValue(s, List.class);
+            }
         } catch (final IOException e) {
         }
         return List.of();

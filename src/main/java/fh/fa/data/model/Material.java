@@ -1,7 +1,7 @@
 package fh.fa.data.model;
 
 import fh.fa.data.repository.DatabaseEntity;
-import fh.fa.data.repository.converters.ListToJsonConverter;
+import fh.fa.data.repository.converters.StringListToJsonConverter;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,9 +24,9 @@ public class Material implements DatabaseEntity {
     @Id
     private Long id;
     private String name;
-    @Convert(converter = ListToJsonConverter.class)
+    @Convert(converter = StringListToJsonConverter.class)
     private List<String> abbreviations;
-    @Convert(converter = ListToJsonConverter.class)
+    @Convert(converter = StringListToJsonConverter.class)
     private List<String> images;
     private String type;
 
