@@ -5,10 +5,16 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -16,7 +22,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "products")
 public class Product implements DatabaseEntity {
-    private static final long serialVersionUID = -2343243243246732341L;
+    private static final long serialVersionUID = -2343243243246732340L;
 
     @Id
     private Long id;
@@ -26,10 +32,9 @@ public class Product implements DatabaseEntity {
     private String type;
     @Column(name = "image_link")
     private String image;
-
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
+    @OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "product_id")
+    private List<Component> components = new ArrayList<>();
 
     public Long getId() {
         return id;

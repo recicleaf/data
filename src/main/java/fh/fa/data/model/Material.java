@@ -19,7 +19,7 @@ import java.util.List;
 @Table(name = "materials")
 public class Material implements DatabaseEntity {
 
-    private static final long serialVersionUID = -2343243243242432341L;
+    private static final long serialVersionUID = -2343243243246732342L;
 
     @Id
     private Long id;
@@ -29,10 +29,6 @@ public class Material implements DatabaseEntity {
     @Convert(converter = ListToJsonConverter.class)
     private List<String> images;
     private String type;
-
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
 
     public Long getId() {
         return id;
